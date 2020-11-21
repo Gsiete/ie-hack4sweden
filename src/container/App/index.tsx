@@ -1,34 +1,22 @@
 import React from 'react';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
-import logo from '../../logo.svg';
 import '../../App.css';
-import { AuthContext } from '../AuthProvider';
-import { firestore } from '../../firebase';
+import AccessPage from '../AuthProvider/AccessPage';
+import Home from '../Home';
+import Map from '../Map';
 
 function App() {
-  const user = React.useContext(AuthContext);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {user?.uid && (
-          <button onClick={() => firestore.collection('test').add({ userId: user?.uid, data: `test ${new Date().toJSON()}` })}>
-            Test Fs
-          </button>
-        )}
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Switch>
+          <Route path="/access" exact component={AccessPage} />
+          <Route path="/map" exact component={Map} />
+          <Route path="/" exact component={Home} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
