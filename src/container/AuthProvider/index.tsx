@@ -7,7 +7,9 @@ import AuthContext from './context';
 
 const AuthProvider: React.FC = ({ children }) => {
   const [userInfo, setUserInfo] = React.useState<firebase.User | null>(null);
+  const [loading, setIsLoading] = React.useState(true);
   React.useEffect(() => {
+    setTimeout(() => setIsLoading(false), 500);
     auth.onAuthStateChanged((user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
@@ -20,6 +22,9 @@ const AuthProvider: React.FC = ({ children }) => {
     });
   }, []);
   if (!userInfo) {
+    if (loading) {
+      return <div>Loading...</div>;
+    }
     return <AccessPage setUserInfo={setUserInfo} />
   }
   return (
