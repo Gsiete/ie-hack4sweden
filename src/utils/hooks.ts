@@ -10,7 +10,7 @@ export const useSubmitter = (collection: string, docId?: string): [boolean, (val
     setIsSending(true);
     let result;
     if (docId) {
-      result = await firestore.collection(collection).doc(docId).set(values);
+      result = await firestore.collection(collection).doc(docId).set(values, { merge: true});
     } else {
       result = await firestore.collection(collection).add(values);
     }
