@@ -10,9 +10,12 @@ interface Props {
 }
 const AccessPage: React.FC<Props> = ({ setUserInfo }) => {
   const [formData, setFormData] = React.useState<{ email?: string, password?: string }>({});
-  const setFromField = (e: React.ChangeEvent<HTMLInputElement>) => (
-      setFormData({ ...formData, [e.currentTarget.name]: e.currentTarget.value }));
-
+  const setFromField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('name', e.currentTarget.name)
+    console.log('value', e.currentTarget.value)
+    setFormData({...formData, [e.currentTarget.name]: e.currentTarget.value})
+  };
+  console.log(formData)
   const signIn = () => formData.email && formData.password
       && auth.signInWithEmailAndPassword(formData.email, formData.password).then((user) => setUserInfo(user.user));
   const signUp = () => formData.email && formData.password
@@ -29,11 +32,11 @@ const AccessPage: React.FC<Props> = ({ setUserInfo }) => {
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" onChange={setFromField} value={formData.email} placeholder="Enter email" />
+            <Form.Control name="email" type="email" onChange={setFromField} value={formData.email} placeholder="Enter email" />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" onChange={setFromField} value={formData.password} placeholder="Enter password" />
+            <Form.Control name="password" type="password" onChange={setFromField} value={formData.password} placeholder="Enter password" />
           </Form.Group>
           <Button type="button" color="primary" disabled={!formData.email || !formData.password} onClick={signIn}>
             Sign-in
