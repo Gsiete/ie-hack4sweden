@@ -5,10 +5,7 @@ import Map from '../../components/Map';
 
 function Home() {
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <Map />
-    </header>
+      <Map/>
   );
 }
 
