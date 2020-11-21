@@ -13,11 +13,11 @@ interface Props {
 const RiskGraph = (props: Props) => {
     const data = [props.extremlyHighRisk, props.highRisk, props.mediumRisk, props.smallRisk, props.extremlySmallRisk];
     useEffect(() => {
-        const ctx = document.getElementById("myRiskGraph") as HTMLCanvasElement;
+        const ctx = document.getElementById("riskGraph") as HTMLCanvasElement;
         new Chart(ctx, {
             type: "pie",
             data: {
-                labels: ["Extremly High", "High", "Medium", "Small", "Extremly Small"],
+                labels: ["Extremely High", "High", "Medium", "Small", "Extremely Small"],
                 datasets: [
                     {
                         data: data,
@@ -33,7 +33,7 @@ const RiskGraph = (props: Props) => {
             }
         });
     });
-    return <canvas id="myRiskGraph" className="graph"></canvas>
+    return <canvas id="riskGraph" className="graph"></canvas>
 }
 
 export default RiskGraph;
