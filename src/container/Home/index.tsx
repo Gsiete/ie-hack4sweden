@@ -1,13 +1,17 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import InfestationGraph from '../../components/InfestationGraph';
-import AuthContext from '../AuthProvider/context';
 import RiskGraph from '../../components/RiskGraph';
 import Icon from '../../components/Icon';
+import { Redirect } from 'react-router-dom';
+import { useFetchUserData } from '../../utils/hooks';
 
 
 function Home() {
-  const user = React.useContext(AuthContext);
+  const userData = useFetchUserData();
+  if (userData !== undefined && !userData?.polygon) {
+    return <Redirect to="/map" />
+  }
 
   const riskData = {
     extremlyHighRisk: 20,
