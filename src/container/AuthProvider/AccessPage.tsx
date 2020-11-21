@@ -9,15 +9,18 @@ interface Props {
 const AccessPage: React.FC<Props> = ({ setUserInfo }) => {
   const [formData, setFormData] = React.useState<{ email?: string, password?: string }>({});
   const setFromField = (e: React.ChangeEvent<HTMLInputElement>) => (
-      setFormData({ [e.currentTarget.name]: e.currentTarget.value }));
+      setFormData({ ...formData, [e.currentTarget.name]: e.currentTarget.value }));
+
   const signIn = () => formData.email && formData.password
       && auth.signInWithEmailAndPassword(formData.email, formData.password).then((user) => setUserInfo(user.user));
   const signUp = () => formData.email && formData.password
       && auth.createUserWithEmailAndPassword(formData.email, formData.password).then((user) => setUserInfo(user.user));
+
   const loginWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider).then((result) => setUserInfo(result.user));
   }
+  console.log(formData)
   return (
       <div>
         <form>

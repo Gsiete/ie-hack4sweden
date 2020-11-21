@@ -2,8 +2,11 @@ import React from 'react';
 
 import logo from '../../logo.svg';
 import '../../App.css';
+import { AuthContext } from '../AuthProvider';
+import { firestore } from '../../firebase';
 
 function App() {
+  const user = React.useContext(AuthContext);
   return (
     <div className="App">
       <header className="App-header">
@@ -19,6 +22,11 @@ function App() {
         >
           Learn React
         </a>
+        {user?.uid && (
+          <button onClick={() => firestore.collection('test').add({ userId: user?.uid, data: `test ${new Date().toJSON()}` })}>
+            Test Fs
+          </button>
+        )}
       </header>
     </div>
   );
