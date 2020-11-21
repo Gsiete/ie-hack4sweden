@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import { auth } from '../../firebase';
 import AccessPage from './AccessPage';
 import AuthContext from './context';
+import Loader from '../../components/Loader';
 
 const AuthProvider: React.FC = ({ children }) => {
   const [userInfo, setUserInfo] = React.useState<firebase.User | null>(null);
@@ -23,7 +24,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
   if (!userInfo) {
     if (loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     }
     return <AccessPage setUserInfo={setUserInfo} />
   }

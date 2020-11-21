@@ -5,12 +5,17 @@ import RiskGraph from '../../components/RiskGraph';
 import Icon from '../../components/Icon';
 import { Redirect } from 'react-router-dom';
 import { useFetchUserData } from '../../utils/hooks';
+import Loader from '../../components/Loader';
 
 
 function Home() {
   const userData = useFetchUserData();
   if (userData !== undefined && !userData?.polygon) {
     return <Redirect to="/map" />
+  }
+
+  if (userData === undefined) {
+    return <Loader />;
   }
 
   const riskData = {
