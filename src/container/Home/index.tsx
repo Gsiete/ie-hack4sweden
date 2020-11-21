@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import InfestationGraph from '../../components/InfestationGraph';
 import AuthContext from '../AuthProvider/context';
 import RiskGraph from '../../components/RiskGraph';
+import Icon from '../../components/Icon';
 
 
 function Home() {
@@ -15,6 +16,12 @@ function Home() {
     smallRisk: 6,
     extremlySmallRisk: 29,
   }
+
+  const lat = 58.62;
+  const lng = 16.08
+  const googleLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+  const riskLink = `https://kartor.skogsstyrelsen.se/kartor/?startapp=skador&x=6784288.83&y=435145.725&scale=100002.5736864&bg=Granbarkborre`
+  const infestationLink = `https://kartor.skogsstyrelsen.se/kartor/?startapp=skador&x=6784288.83&y=435145.725&scale=100002.5736864&bg=Analys`
 
   return (
     <Container>
@@ -33,7 +40,9 @@ function Home() {
 
       <p className="mt-5">Operations</p>
       <div className="operations">
-
+        <Icon image="google-map.png" link={googleLink} title="Google Maps"></Icon>
+        <Icon image="skog.jpeg" link={riskLink} title="Risk Map"></Icon>
+        <Icon image="skog.jpeg" link={infestationLink} title="Infestation Map"></Icon>
       </div>
     </Container>
   );
