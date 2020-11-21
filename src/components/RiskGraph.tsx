@@ -1,33 +1,39 @@
 import Chart from 'chart.js';
 import React, { useEffect } from 'react';
 
-const RiskGraph = () => {
+interface Props {
+    extremlyHighRisk: number;
+    highRisk: number;
+    mediumRisk: number;
+    smallRisk: number;
+    extremlySmallRisk: number;
+}
+
+
+const RiskGraph = (props: Props) => {
+    const data = [props.extremlyHighRisk, props.highRisk, props.mediumRisk, props.smallRisk, props.extremlySmallRisk];
     useEffect(() => {
-        const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+        const ctx = document.getElementById("myRiskGraph") as HTMLCanvasElement;
         new Chart(ctx, {
             type: "pie",
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: ["Extremly High", "High", "Medium", "Small", "Extremly Small"],
                 datasets: [
                     {
-                        label: "# of Votes",
-                        data: [12, 19, 3, 5, 2, 3],
+                        data: data,
                         backgroundColor: [
-                            "Red",
-                            "Blue",
-                            "Yellow",
-                            "Green",
-                            "Purple",
-                            "Orange"
+                            "#410101",
+                            "#6a1b0c",
+                            "#a75c3c",
+                            "#d8aa78",
+                            "#faf7c4"
                         ],
-                        borderColor: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                        borderWidth: 1
                     }
                 ]
             }
         });
     });
-    return <canvas id="myChart" width="400" height="400"></canvas>
+    return <canvas id="myRiskGraph" className="graph"></canvas>
 }
 
 export default RiskGraph;
