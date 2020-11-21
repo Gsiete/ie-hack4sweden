@@ -80,10 +80,10 @@ const pointerMoveHandler =  (evt: any) => {
       return;
     }
     /** @type {string} */
-    var helpMsg = 'Click to start drawing';
+    let helpMsg = 'Click to start drawing';
   
     if (sketch) {
-      var geom = sketch.getGeometry();
+      const geom = sketch.getGeometry();
       if (geom instanceof Polygon) {
         helpMsg = continuePolygonMsg;
       } else if (geom instanceof LineString) {
@@ -127,8 +127,8 @@ const createVectorLayer = (): VectorLayer => {
  * @return {string} The formatted length.
  */
 const formatLength = (line: any) => {
-    var length = getLength(line);
-    var output;
+    const length = getLength(line);
+    let output;
     if (length > 100) {
       output = Math.round((length / 1000) * 100) / 100 + ' ' + 'km';
     } else {
@@ -143,8 +143,8 @@ const formatLength = (line: any) => {
  * @return {string} Formatted area.
  */
 const formatArea = (polygon: any) => {
-    var area = getArea(polygon);
-    var output;
+    const area = getArea(polygon);
+    let output;
     if (area > 10000) {
       output = Math.round((area / 1000000) * 100) / 100 + ' ' + 'km<sup>2</sup>';
     } else {
@@ -197,7 +197,7 @@ const createHelpTooltip = () => {
   }
 
   const addInteraction = () => {
-    var type = typeSelect?.innerHTML == 'area' ? GeometryType.POLYGON : GeometryType.LINE_STRING;
+    const type = typeSelect?.innerHTML == 'area' ? GeometryType.POLYGON : GeometryType.LINE_STRING;
     draw = new Draw({
       source: vectorSource,
       type: type,
