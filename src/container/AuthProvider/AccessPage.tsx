@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Alert, Button, Container, Form } from 'react-bootstrap';
 
 import '../../App.css';
 import { auth } from '../../firebase';
@@ -10,16 +10,22 @@ interface Props {
 }
 const AccessPage: React.FC<Props> = ({ setUserInfo }) => {
   const [formData, setFormData] = React.useState<{ email?: string, password?: string }>({});
+  const [error, setError] = React.useState('');
   const setFromField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('name', e.currentTarget.name)
-    console.log('value', e.currentTarget.value)
+    if (error) {
+      setError('');
+    }
     setFormData({...formData, [e.currentTarget.name]: e.currentTarget.value})
   };
   console.log(formData)
   const signIn = () => formData.email && formData.password
-      && auth.signInWithEmailAndPassword(formData.email, formData.password).then((user) => setUserInfo(user.user));
+      && auth.signInWithEmailAndPassword(formData.email, formData.password)
+      .then((user) => setUserInfo(user.user))
+      .catch((e) => setError(e.message));
   const signUp = () => formData.email && formData.password
-      && auth.createUserWithEmailAndPassword(formData.email, formData.password).then((user) => setUserInfo(user.user));
+      && auth.createUserWithEmailAndPassword(formData.email, formData.password)
+      .then((user) => setUserInfo(user.user))
+      .catch((e) => setError(e.message));
 
   const loginWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -29,6 +35,7 @@ const AccessPage: React.FC<Props> = ({ setUserInfo }) => {
   return (
     <div className="App">
       <Container>
+        {error && <Alert variant="danger">{error}</Alert>}
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
