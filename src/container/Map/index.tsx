@@ -11,7 +11,7 @@ function Home() {
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
       <Map />
-      <Button disabled={isSending} onClick={() => setUserData({ dataSubmitted: true })}>Submit!!!</Button>
+      <Button disabled={isSending} onClick={() => setUserData({ polygon: true })}>Submit!!!</Button>
     </header>
   );
 }
