@@ -18,10 +18,23 @@ function Home() {
 
   return (
     <Container>
-      <p>{user?.uid}</p>
-      <p>On this page you can see information about your area</p>
-      <RiskGraph {...riskData}></RiskGraph>
-      <InfestationGraph></InfestationGraph>
+
+      <p className="mt-2">On this page you can see information about your area</p>
+      <div className="graph-area">
+        <div className='graph-section'>
+          <p className="text-muted">This graph shows the breakdown of forest in your area based on likelihood of it being infected.</p>
+          <RiskGraph {...riskData}></RiskGraph>
+        </div>
+        <div className='graph-section'>
+          <p className="text-muted">This report agregates data about curret vegatation change in order to estimate change of the vegitations caused by the i</p>
+          <InfestationGraph></InfestationGraph>
+        </div>
+      </div>
+
+      <p className="mt-5">Operations</p>
+      <div className="operations">
+
+      </div>
     </Container>
   );
 }
