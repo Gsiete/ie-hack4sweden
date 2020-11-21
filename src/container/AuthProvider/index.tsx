@@ -3,8 +3,7 @@ import firebase from 'firebase';
 
 import { auth } from '../../firebase';
 import AccessPage from './AccessPage';
-
-export const AuthContext = React.createContext<firebase.User | null>(null);
+import AuthContext from './context';
 
 const AuthProvider: React.FC = ({ children }) => {
   const [userInfo, setUserInfo] = React.useState<firebase.User | null>(null);

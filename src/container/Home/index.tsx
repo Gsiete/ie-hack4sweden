@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import InfestationGraph from '../../components/InfestationGraph';
+import AuthContext from '../AuthProvider/context';
 import RiskGraph from '../../components/RiskGraph';
-import { AuthContext } from '../AuthProvider';
 
 
 function Home() {
