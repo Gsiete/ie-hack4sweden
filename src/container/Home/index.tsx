@@ -37,7 +37,7 @@ function Home() {
           <RiskGraph {...riskData}></RiskGraph>
         </div>
         <div className='graph-section'>
-          <p className="text-muted">This report agregates data about curret vegatation change in order to estimate change of the vegitations caused by the i</p>
+          <p className="text-muted">This report agregates data about curret vegatation change in order to estimate change of the vegitations caused by the infestation.</p>
           <InfestationGraph></InfestationGraph>
         </div>
       </div>
