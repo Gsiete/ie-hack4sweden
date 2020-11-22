@@ -8,13 +8,14 @@ import VectorLayer from 'ol/layer/Vector';
 import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
-import { Overlay } from 'ol';
+import { MapBrowserEvent, Overlay } from 'ol';
 import Polygon from 'ol/geom/Polygon';
 import LineString from 'ol/geom/LineString';
 import { getArea, getLength } from 'ol/sphere';
 import Draw from 'ol/interaction/Draw';
 import GeometryType from 'ol/geom/GeometryType';
 import OverlayPositioning from 'ol/OverlayPositioning';
+import { event } from 'firebase-functions/lib/providers/analytics';
 
 
 const test = () => {
@@ -198,7 +199,7 @@ const formatArea = (polygon: any) => {
   }
 
   const addInteraction = () => {
-    const type = typeSelect?.innerHTML == 'area' ? GeometryType.POLYGON : GeometryType.LINE_STRING;
+    const type = typeSelect?.value == 'area' ? GeometryType.POLYGON : GeometryType.LINE_STRING;
     draw = new Draw({
       source: vectorSource,
       type: type,
@@ -228,6 +229,28 @@ const formatArea = (polygon: any) => {
       createMeasureTooltip();
       createHelpTooltip();
     }
+
+    var listener;
+  draw.on('drawstart', (evt: any) => {
+    // set sketch
+    sketch = evt.feature;
+
+    let tooltipCoord = evt.coordinate;
+    
+    listener = sketch.getGeometry().on('change',  (evt: MapBrowserEvent) => {
+      const geom = evt.target;
+      let output;
+      if (geom instanceof Polygon) {
+        output = formatArea(geom);
+        tooltipCoord = geom.getInteriorPoint().getCoordinates();
+      } else if (geom instanceof LineString) {
+        output = formatLength(geom);
+        tooltipCoord = geom.getLastCoordinate();
+      }
+      measureTooltipElement.innerHTML = output as string;
+      measureTooltip.setPosition(tooltipCoord);
+    });
+  });
   }
 
   /**
@@ -239,6 +262,10 @@ const formatArea = (polygon: any) => {
     addInteraction();
   };
   addInteraction();
+
+  draw.on('drawend', (evt: any) => {
+    console.log('Coordinates', evt.feature.getGeometry().getCoordinates());
+  })
 
 //#endregion
 
@@ -273,7 +300,7 @@ const formatArea = (polygon: any) => {
       });
     }
   }, [0]);
-
+console.log('Map', map);
   return (
     <>
       <div ref={mapRef} className="map" />
