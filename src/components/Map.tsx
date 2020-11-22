@@ -162,7 +162,7 @@ const formatArea = (polygon: any) => {
    */
   const createMeasureTooltip = () => {
     if (measureTooltipElement) {
-      measureTooltipElement.childNodes.forEach((child) => child.removeChild(measureTooltipElement));
+      measureTooltipElement.parentNode?.removeChild(measureTooltipElement);
     }
     measureTooltipElement = document.createElement('div');
     measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure';
@@ -183,7 +183,7 @@ const formatArea = (polygon: any) => {
    */
   const createHelpTooltip = () => {
     if (helpTooltipElement) {
-      helpTooltipElement.childNodes.forEach((child) => child.removeChild(helpTooltipElement));
+      helpTooltipElement.parentNode?.removeChild(helpTooltipElement);
     }
     helpTooltipElement = document.createElement('div');
     helpTooltipElement.className = 'ol-tooltip hidden';
