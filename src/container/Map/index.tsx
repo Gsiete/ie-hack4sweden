@@ -81,7 +81,8 @@ const Map = ({ history }: { history: History }) => {
         .map(([lng, lat]) => ({ lat, lng })) })
     history.push('/');
   }
-  console.log('polygon', userData?.polygon);
+  const polygon = userData?.polygon as {lat: number, lng: number}[];
+  console.log('polygon', polygon?.map(({ lat, lng }) => olProj.transform([lng, lat], 'EPSG:4326', 'EPSG:3857')));
   //#region Functions
   const pointerMoveHandler = (evt: any) => {
     if (evt.dragging) {
