@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { History } from 'history';
 import * as ol from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import VectorSource from 'ol/source/Vector';
 import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
-import Point from 'ol/geom/Point';
-import { fromLonLat } from 'ol/proj';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import { MapBrowserEvent, Overlay } from 'ol';
 import Polygon from 'ol/geom/Polygon';
@@ -15,9 +14,9 @@ import { getArea, getLength } from 'ol/sphere';
 import Draw from 'ol/interaction/Draw';
 import GeometryType from 'ol/geom/GeometryType';
 import OverlayPositioning from 'ol/OverlayPositioning';
-import { event } from 'firebase-functions/lib/providers/analytics';
+
 import { useFetchUserData, useUserDataSubmitter } from '../../utils/hooks';
-import { Redirect } from 'react-router-dom';
+
 
 
 const test = () => {
@@ -68,17 +67,16 @@ const vectorSource = new VectorSource();
 
 let draw: any; // global so we can remove it later
 
-const Map = () => {
+const Map = ({ history }: { history: History }) => {
   const typeSelectRef = React.useRef<HTMLSelectElement>(null);
   const typeSelect = typeSelectRef.current;
   const mapRef = React.useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<ol.Map>();
-  const [redirectHome, setRedirectHome] = useState(false);
   const [isSending, sendUserData] = useUserDataSubmitter();
   const userData = useFetchUserData();
   const submitPolygon = async (polygon: [lat: number, lat: number][]) => {
     await sendUserData({ polygon: polygon.map(([ lat, lng ]) => ({ lat, lng })) })
-    setRedirectHome(true);
+    history.push('/');
   }
   console.log('polygon', userData?.polygon);
   //#region Functions
@@ -300,9 +298,6 @@ const Map = () => {
   }, [map]);
   console.log('Map', map);
 
-  if (!isSending && redirectHome) {
-    return <Redirect to="/" />;
-  }
   return (
     <>
       <div ref={mapRef} className="map"/>
