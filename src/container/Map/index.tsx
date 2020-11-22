@@ -18,13 +18,7 @@ function Home() {
     return <Redirect to="/" />
   }
 
-  return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <Map />
-      <Button disabled={isSending} onClick={handleSubmit}>Submit!!!</Button>
-    </header>
-  );
+  return <Map/>;
 }
 
 export default Home;
