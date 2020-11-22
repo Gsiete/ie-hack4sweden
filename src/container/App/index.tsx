@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import '../../App.css';
@@ -8,6 +8,10 @@ import Map from '../Map';
 import Sample from '../Sample';
 
 function App() {
+  useEffect(() => {
+    document.title = "Saving Private Skog"
+  }, []);
+
   return (
     <BrowserRouter>
       <div className="App">
