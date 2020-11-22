@@ -78,7 +78,7 @@ const Map = ({ history }: { history: History }) => {
   const submitPolygon = async (polygon: [lat: number, lat: number][]) => {
     await sendUserData({ polygon: polygon
         .map((coord) => olProj.transform(coord, 'EPSG:3857', 'EPSG:4326'))
-        .map(([ lat, lng ]) => ({ lat, lng })) })
+        .map(([lng, lat]) => ({ lat, lng })) })
     history.push('/');
   }
   console.log('polygon', userData?.polygon);
