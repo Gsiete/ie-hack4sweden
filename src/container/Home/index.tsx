@@ -34,9 +34,9 @@ function Home() {
   console.log('sumPoint', sumPoint)
   console.log('polygon.length', polygon.length)
   const avgPoint = polygon ? { lat: sumPoint.sumLat/polygon.length, lng: sumPoint.sumLng/polygon.length } : {};
-  // const { lat, lng } = avgPoint;
-  const lat = 58.62;
-  const lng = 16.08
+  const { lat, lng } = avgPoint;
+  // const lat = 58.62;
+  // const lng = 16.08
   const googleLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
   const riskLink = `https://kartor.skogsstyrelsen.se/kartor/?startapp=skador&x=6784288.83&y=435145.725&scale=100002.5736864&bg=Granbarkborre`
   const infestationLink = `https://kartor.skogsstyrelsen.se/kartor/?startapp=skador&x=6784288.83&y=435145.725&scale=100002.5736864&bg=Analys`

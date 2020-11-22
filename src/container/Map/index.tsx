@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { History } from 'history';
 import * as ol from 'ol';
+import * as olProj from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import VectorSource from 'ol/source/Vector';
@@ -75,7 +76,9 @@ const Map = ({ history }: { history: History }) => {
   const [isSending, sendUserData] = useUserDataSubmitter();
   const userData = useFetchUserData();
   const submitPolygon = async (polygon: [lat: number, lat: number][]) => {
-    await sendUserData({ polygon: polygon.map(([ lat, lng ]) => ({ lat, lng })) })
+    await sendUserData({ polygon: polygon
+        .map((coord) => olProj.transform(coord, 'EPSG:3857', 'EPSG:4326'))
+        .map(([ lat, lng ]) => ({ lat, lng })) })
     history.push('/');
   }
   console.log('polygon', userData?.polygon);
