@@ -25,7 +25,16 @@ function Home() {
     smallRisk: 6,
     extremlySmallRisk: 29,
   }
-
+  const polygon = userData?.polygon as {lat: number, lng: number}[]
+  console.log(userData?.polygon)
+  const sumPoint = polygon?.reduce(
+    ({ sumLat, sumLng }, { lat, lng }) => ({ sumLat: sumLat + lat, sumLng: sumLng + lng }),
+    { sumLat: 0, sumLng: 0 }
+  );
+  console.log('sumPoint', sumPoint)
+  console.log('polygon.length', polygon.length)
+  const avgPoint = polygon ? { lat: sumPoint.sumLat/polygon.length, lng: sumPoint.sumLng/polygon.length } : {};
+  // const { lat, lng } = avgPoint;
   const lat = 58.62;
   const lng = 16.08
   const googleLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
