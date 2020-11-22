@@ -31,6 +31,7 @@ function Home() {
   const googleLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
   const riskLink = `https://kartor.skogsstyrelsen.se/kartor/?startapp=skador&x=6784288.83&y=435145.725&scale=100002.5736864&bg=Granbarkborre`
   const infestationLink = `https://kartor.skogsstyrelsen.se/kartor/?startapp=skador&x=6784288.83&y=435145.725&scale=100002.5736864&bg=Analys`
+  const resolutionLink = `https://googlethatforyou.com?q=My%20forest%20is%20eaten%20by%20bugs%20...%20or%20ghosts`;
 
   return (
     <Container>
@@ -52,6 +53,7 @@ function Home() {
         <Icon image="google-map.png" link={googleLink} title="Google Maps"></Icon>
         <Icon image="skog.jpeg" link={riskLink} title="Risk Map"></Icon>
         <Icon image="skog.jpeg" link={infestationLink} title="Infestation Map"></Icon>
+        <Icon image="ghostbusters.jpg" link={resolutionLink} title="Who you gonna call"></Icon>
       </div>
     </Container>
   );
